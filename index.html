@@ -201,7 +201,7 @@ RC.start=async()=>{const m=RC.cfg.auth||'google';
 RC.google=()=>RC.db.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname,queryParams:{hd:'nahdaschools.com',prompt:'select_account'}}});
 RC.sendOtp=async b=>{const e=document.getElementById('lgEmail').value.trim().toLowerCase();
  if(!e.endsWith(RC.domain)){RC.msg('<span class="err">اكتب بريدك المدرسي المنتهي بـ '+RC.domain+'</span>');return}
- b.disabled=true;const {error}=await RC.db.auth.signInWithOtp({email:e});b.disabled=false;
+ b.disabled=true;const {error}=await RC.db.auth.signInWithOtp({email:e,options:{emailRedirectTo:location.origin+location.pathname}});b.disabled=false;
  if(error){RC.msg('<span class="err">تعذّر الإرسال: '+error.message+'</span>');return}
  document.getElementById('lgCodeBox').style.display='';RC.msg('أرسلنا رسالة دخول إلى بريدك المدرسي: اضغط الرابط الذي فيها، أو اكتب الرمز هنا إن وُجد.')};
 RC.verifyOtp=async b=>{const e=document.getElementById('lgEmail').value.trim().toLowerCase(),t=document.getElementById('lgCode').value.trim();
